@@ -7,7 +7,11 @@ if len(sys.argv) != 4:
     print("Exemplo: python convert.py 100 usd brl")
     sys.exit(1)
 
-valor = float(sys.argv[1])
+try:
+    valor = float(sys.argv[1])
+except ValueError:
+    print("Erro: o valor precisa ser algum número, ex: 100, 50.5")
+    sys.exit(1)
 da_unidade = sys.argv[2]
 para_unidade = sys.argv[3]
 

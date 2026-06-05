@@ -1,5 +1,5 @@
 import urllib.request
-import json
+import json, sys
 
 def converter_temperatura(valor, temperatura_origem, temperatura_destino):
     temperatura_origem = temperatura_origem.lower()
@@ -57,6 +57,14 @@ def converter_moeda(valor, moeda_origem, moeda_destino):
     url = f"https://open.er-api.com/v6/latest/{moeda_origem}"
     with urllib.request.urlopen(url, timeout=5) as resposta:
         dados = json.loads(resposta.read())
+
+    if dados.get("result") != "success":
+        print(f"Erro: '{moeda_origem}' não é uma moeda válida.")
+        sys.exit(1)
+
+    if moeda_destino not in dados["rates"]:
+        print(f"Erro: '{moeda_destino}' não é uma moeda válida.")
+        sys.exit(1)
 
     taxa = dados["rates"][moeda_destino]
     return valor * taxa
