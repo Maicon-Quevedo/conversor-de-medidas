@@ -1,5 +1,6 @@
 import urllib.request
-import json, sys
+import json, sys, os
+from datetime import datetime
 
 def converter_temperatura(valor, temperatura_origem, temperatura_destino):
     temperatura_origem = temperatura_origem.lower()
@@ -68,3 +69,22 @@ def converter_moeda(valor, moeda_origem, moeda_destino):
 
     taxa = dados["rates"][moeda_destino]
     return valor * taxa
+
+def salvar_historico(valor, da_unidade, para_unidade, resultado):
+    registro = {
+        "data": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "valor": valor,
+        "de": da_unidade.upper(),
+        "para": para_unidade.upper(),
+        "resultado": round(resultado, 2),
+    }
+    if os.path.exists("historico.json"):
+        with open("historico.json", "r") as arquivo:
+            historico = json.load(arquivo)
+    else:
+        historico = []
+
+    historico.append(registro)
+
+    with open("historico.json", "w") as arquivo:
+        json.dump(historico, arquivo, indent=4)

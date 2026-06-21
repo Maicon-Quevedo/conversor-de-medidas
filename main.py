@@ -1,6 +1,6 @@
 import sys
 
-from conversor.funcoes_conversoes import converter_temperatura, converter_peso, converter_distancia, converter_moeda
+from conversor.funcoes_conversoes import converter_temperatura, converter_peso, converter_distancia, converter_moeda, salvar_historico
 
 def modo_interativo():
     print("Bem vindo ao conversor de medidas!")
@@ -38,6 +38,7 @@ def modo_interativo():
         print("Opção inválida!")
         sys.exit(1)
 
+    salvar_historico(valor, da_unidade, para_unidade, resultado)
     print(f"{valor} {da_unidade.upper()} = {resultado:.2f} {para_unidade.upper()}")
     
 
@@ -70,4 +71,5 @@ elif da_unidade.lower() in distancias:
 else:
     resultado = converter_moeda(valor, da_unidade, para_unidade)
 
+salvar_historico(valor, da_unidade, para_unidade, resultado)
 print(f"{valor} {da_unidade.upper()} = {resultado:.2f} {para_unidade.upper()}")
