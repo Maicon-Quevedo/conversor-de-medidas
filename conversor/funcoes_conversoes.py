@@ -1,6 +1,7 @@
 import urllib.request
 import json, sys, os
 from datetime import datetime
+from colorama import Fore
 
 def converter_temperatura(valor, temperatura_origem, temperatura_destino):
     temperatura_origem = temperatura_origem.lower()
@@ -60,11 +61,11 @@ def converter_moeda(valor, moeda_origem, moeda_destino):
         dados = json.loads(resposta.read())
 
     if dados.get("result") != "success":
-        print(f"Erro: '{moeda_origem}' não é uma moeda válida.")
+        print(Fore.RED + f"Erro: '{moeda_origem}' não é uma moeda válida.")
         sys.exit(1)
 
     if moeda_destino not in dados["rates"]:
-        print(f"Erro: '{moeda_destino}' não é uma moeda válida.")
+        print(Fore.RED + f"Erro: '{moeda_destino}' não é uma moeda válida.")
         sys.exit(1)
 
     taxa = dados["rates"][moeda_destino]
