@@ -89,3 +89,17 @@ def salvar_historico(valor, da_unidade, para_unidade, resultado):
 
     with open("historico.json", "w") as arquivo:
         json.dump(historico, arquivo, indent=4)
+
+def pedir_valor():
+    while True:
+        try:
+            return float(input("Valor: "))
+        except ValueError:
+            print(Fore.RED + "Erro: digite um número válido, ex: 100, 50.5")
+
+def pedir_unidade(mensagem):
+    while True:
+        unidade = input(mensagem)
+        if unidade.strip() != "":
+            return unidade
+        print(Fore.RED + "Erro: você precisa digitar uma unidade.")

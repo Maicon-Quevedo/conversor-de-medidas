@@ -1,6 +1,6 @@
 import sys
 
-from conversor.funcoes_conversoes import converter_temperatura, converter_peso, converter_distancia, converter_moeda, salvar_historico
+from conversor.funcoes_conversoes import converter_temperatura, converter_peso, converter_distancia, converter_moeda, salvar_historico, pedir_valor, pedir_unidade
 from colorama import Fore, Style, init
 init(autoreset=True)
 
@@ -17,28 +17,25 @@ def modo_interativo():
         escolha = input("Escolha: ")
 
     if escolha == "1":
-        da_unidade = input("De qual unidade? (c, f, k): ")
-        para_unidade = input("Para qual unidade? (c, f, k): ")
-        valor = float(input("Valor: "))
+        da_unidade = pedir_unidade("De qual unidade? (c, f, k): ")
+        para_unidade = pedir_unidade("Para qual unidade? (c, f, k): ")
+        valor = pedir_valor()
         resultado = converter_temperatura(valor, da_unidade, para_unidade)
     elif escolha == "2":
-        da_unidade = input("De qual unidade? (kg, g, lb, oz, t): ")
-        para_unidade = input("Para qual unidade? (kg, g, lb, oz, t): ")
-        valor = float(input("Valor: "))
+        da_unidade = pedir_unidade("De qual unidade? (kg, g, lb, oz, t): ")
+        para_unidade = pedir_unidade("Para qual unidade? (kg, g, lb, oz, t): ")
+        valor = pedir_valor()
         resultado = converter_peso(valor, da_unidade, para_unidade)
     elif escolha == "3":
-        da_unidade = input("De qual unidade? (m, km, cm, mm, mi, ft, in, yd): ")
-        para_unidade = input("Para qual unidade? (m, km, cm, mm, mi, ft, in, yd): ")
-        valor = float(input("Valor: "))
+        da_unidade = pedir_unidade("De qual unidade? (m, km, cm, mm, mi, ft, in, yd): ")
+        para_unidade = pedir_unidade("Para qual unidade? (m, km, cm, mm, mi, ft, in, yd): ")
+        valor = pedir_valor()
         resultado = converter_distancia(valor, da_unidade, para_unidade)
     elif escolha == "4":
-        da_unidade = input("De qual moeda? (usd, brl, eur...): ")
-        para_unidade = input("Para qual moeda? (usd, brl, eur...): ")
-        valor = float(input("Valor: "))
+        da_unidade = pedir_unidade("De qual moeda? (usd, brl, eur...): ")
+        para_unidade = pedir_unidade("Para qual moeda? (usd, brl, eur...): ")
+        valor = pedir_valor()
         resultado = converter_moeda(valor, da_unidade, para_unidade)
-    else:
-        print("Opção inválida!")
-        sys.exit(1)
 
     salvar_historico(valor, da_unidade, para_unidade, resultado)
     print(Fore.GREEN + f"{valor} {da_unidade.upper()} = {resultado:.2f} {para_unidade.upper()}")
